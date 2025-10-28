@@ -8,6 +8,7 @@
     team to create a password strength checker. This tool will allow employees to get feedback on the 
     strength of their passwords.
     Enhancements:
+    Added messages to indicate how to make the password stronger
     
 """
 LOWER=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -27,9 +28,9 @@ def main():
         password = input("Please enter the password you would like to test (q or Q to quit): ")
         if password.lower() == "q":
             break
-        strength = password_strength(password,10,15)
+        strength = password_strength(password,10,16)
                
-        print(f"{password} has a password strength of {strength}.")
+        print(f"\n{password} has a password strength of {strength}.\n")
 
 """
     This function reads a file (specified by the filename parameter) in which each line of the file contains a single word. 
@@ -76,12 +77,20 @@ def word_complexity(word):
     complexity = 0
     if word_has_character(word,LOWER):
         complexity += 1
+    else:
+        print("\nadd a lower case letter to increase the strength of your password")
     if word_has_character(word,UPPER):
         complexity += 1
+    else:
+        print("\nadd a upper case letter to increase the strength of your password")
     if word_has_character(word,DIGITS):
         complexity += 1
+    else:
+        print("\nadd a number to increase the strength of your password")
     if word_has_character(word,SPECIAL):
         complexity += 1
+    else:
+        print("\nadd a special character to increase the strength of your password")
     return complexity
 
 
@@ -94,16 +103,16 @@ def word_complexity(word):
 """
 def password_strength(password,min_length=10,strong_length=16):
     if word_in_file(password,"wordlist.txt",False):
-        print("Password is a dictionary word and is not secure.")
+        print("\nPassword is a dictionary word and is not secure.")
         return 0
     if word_in_file(password,"toppasswords.txt",True):
-        print("Password is a commonly used password and is not secure.")
+        print("\nPassword is a commonly used password and is not secure.")
         return 0
     if len(password) < min_length:
-        print("Password is too short and is not secure.")
+        print("\nPassword is too short and is not secure.")
         return 1
-    if len(password) > strong_length:
-        print("Password is long, length trumps complexity this is a good password.")
+    if len(password) >= strong_length:
+        print("\nPassword is long, length trumps complexity this is a good password.")
         return 5
     score = word_complexity(password) + 1
     return score
