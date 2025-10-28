@@ -38,12 +38,19 @@ def main():
     match is performed. The case_sensitive parameter should default to False 
     return Boolean
 """
-def word_in_file(word,filename,case_sensitive):
+def word_in_file(word,filename,case_sensitive=False):
     with open(filename, "r",encoding="utf-8") as inputfile:
-        lines = inputfile.readlines()
-    
-    for line in lines:
-        line.strip()
+        for line in inputfile:
+            thisline = line.strip()
+        
+            if case_sensitive:
+                if word in thisline:
+                    return True
+
+            else:
+                if word.lower() in thisline.lower():
+                    return True
+        return False
  
 """ 
     This function loops through each character in the string passed in the word parameter to see if that character is in the list 
@@ -86,7 +93,19 @@ def word_complexity(word):
     return integer
 """
 def password_strength(password,min_length=10,strong_length=16):
-    score = word_complexity(password)
+    if word_in_file(password,"wordlist.txt",False):
+        print("Password is a dictionary word and is not secure.")
+        return 0
+    if word_in_file(password,"toppasswords.txt",True):
+        print("Password is a commonly used password and is not secure.")
+        return 0
+    if len(password) < min_length:
+        print("Password is too short and is not secure.")
+        return 1
+    if len(password) > strong_length:
+        print("Password is long, length trumps complexity this is a good password.")
+        return 5
+    score = word_complexity(password) + 1
     return score
 
 if __name__ == "__main__":
