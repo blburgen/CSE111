@@ -30,12 +30,6 @@ def main():
         strength = password_strength(password,10,15)
                
         print(f"{password} has a password strength of {strength}.")
-        
-    # with open("toppasswords.txt", "r",encoding="utf-8") as toppasswords:
-    #     lines = toppasswords.readlines()
-    
-    # for line in lines:
-    #     line.strip()
 
 """
     This function reads a file (specified by the filename parameter) in which each line of the file contains a single word. 
@@ -45,7 +39,11 @@ def main():
     return Boolean
 """
 def word_in_file(word,filename,case_sensitive):
-    pass       
+    with open(filename, "r",encoding="utf-8") as inputfile:
+        lines = inputfile.readlines()
+    
+    for line in lines:
+        line.strip()
  
 """ 
     This function loops through each character in the string passed in the word parameter to see if that character is in the list 
@@ -54,7 +52,10 @@ def word_in_file(word,filename,case_sensitive):
     return Boolean
 """  
 def word_has_character(word,character_list):
-    pass
+    for character in character_list:
+        if character in word:
+            return True
+    return False
 
 """ 
     This function creates a numeric complexity value based on the types of characters the word parameter contains. One point of 
@@ -65,7 +66,17 @@ def word_has_character(word,character_list):
     return integer
 """
 def word_complexity(word):
-    pass
+    complexity = 0
+    if word_has_character(word,LOWER):
+        complexity += 1
+    if word_has_character(word,UPPER):
+        complexity += 1
+    if word_has_character(word,DIGITS):
+        complexity += 1
+    if word_has_character(word,SPECIAL):
+        complexity += 1
+    return complexity
+
 
 """ 
     This function checks length requirements, checks dictionary and known-passwords, calls word_complexity to calculate the word's 
@@ -74,8 +85,9 @@ def word_complexity(word):
     of 10. The strong_length parameter should have a default value of 16
     return integer
 """
-def password_strength(password,min_length,strong_length):
-    pass
+def password_strength(password,min_length=10,strong_length=16):
+    score = word_complexity(password)
+    return score
 
 if __name__ == "__main__":
     main()
