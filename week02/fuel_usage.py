@@ -1,4 +1,6 @@
 """ 
+    Author: Brady Burgener
+    
     Write a Python program that asks the user for three numbers:
 
     A starting odometer value in miles
