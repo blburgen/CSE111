@@ -1,4 +1,6 @@
 """ 
+    Author: Brady Burgener
+
     The lead chemist Mariana Cardoso has asked you to create a program with the following requirements.
 
     1.Ask the user for a chemical formula.
@@ -18,8 +20,12 @@
         *To calculate the number of moles in a sample use the following formula:
     
         number_of_moles = sample_mass / molar_mass
+        
+    Enhancements:
+    Added loop to ask if they would like to do another sample
+    
 """
-
+from formula import parse_formula
 """ 
     main	
     Parameters: (none)
@@ -36,10 +42,23 @@
     8.Display the Number of moles.
 """
 def main():
-    periodic_table_dict = make_periodic_table()
-    print(periodic_table_dict)
-    
-
+    sample = "Y"
+    while sample[0].lower() == 'y':
+        chemical_formula = input("\nEnter the molecular formula of the sample: ")
+        sample_size = float(input("Enter the mass in grams of the sample: "))
+        periodic_table_dict = make_periodic_table()
+        parse_Input = parse_formula(chemical_formula, periodic_table_dict)
+        molar_mass = compute_molar_mass(parse_Input, periodic_table_dict)
+        print(f"Molar Mass of {chemical_formula} is {molar_mass:.5f} grams/mole")
+        moles = sample_size / molar_mass
+        print(f"\nYou have {moles:.5f} moles of {chemical_formula}")
+        sample = ''
+        while sample == '' or sample[0].lower() != 'y':
+            sample = input("\nWould you like to run another sample (yes/no): ")
+            if sample == "no" or sample == "No" or sample == "n" or sample == "N":
+                print("\nHave a nice day.\n")
+                break
+        
 """ 
     make_periodic_table	
     Parameters: (none)
@@ -150,8 +169,6 @@ def make_periodic_table():
         "Zr": ["Zirconium",91.224]
     }
     return periodic_table_dict
-
-
 """ 
     compute_molar_mass	
     Parameters: symbol_quantity_list, periodic_table_dict
@@ -166,7 +183,10 @@ def make_periodic_table():
         2.Return the total mass.
 """
 def compute_molar_mass(symbol_quantity_list, periodic_table_dict):
-    pass
+    total_mass = 0
+    for item in symbol_quantity_list:
+        total_mass += (int(item[1]) * periodic_table_dict[item[0]][1])
+    return total_mass
 
 if __name__ == "__main__":
     main()
