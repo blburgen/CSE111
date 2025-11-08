@@ -19,9 +19,13 @@
             Include a try block and except blocks to handle FileNotFoundError, PermissionError, and KeyError.
             
     Enhancements:
+    added alignment for the receipt
+    added reminder for when our next New Years sale is
+    added return by date
+    
 """
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 """ 
@@ -35,7 +39,7 @@ def main():
         products_dict = read_dictionary("products.csv" ,0)
         # print("All Products")
         # print(products_dict)
-        print("Brady's Groceries")
+        print("-----Brady's Groceries-----")
         with open("request.csv","rt") as user_request:
             reader = csv.reader(user_request)
             next(reader)
@@ -50,7 +54,17 @@ def main():
         print(f"Sales Tax      : ${tax:.2f}")
         print(f"Total:         : ${total:.2f}")
         print("Thank you for shopping at Brady's Groceries")
+        print()
         print(datetime.now().strftime("%c"))
+        nextyear = int(datetime.now().year) + 1
+        datetime1 = datetime(nextyear,1,1)
+        datetime2 = datetime.now()
+        datereturn = datetime2 + timedelta(30)
+        days_to_sell = datetime1 - datetime2
+        print()
+        print(f"***{days_to_sell.days} days to our New Years Sale***")
+        print()
+        print(f"Returns Due By: 9:00PM {datereturn.strftime("%x")}")
     except KeyError as key_err:
         print("Error: unknown product ID in the request.csv file: ", key_err)
     except FileNotFoundError as file_err:
