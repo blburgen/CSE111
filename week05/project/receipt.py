@@ -21,22 +21,44 @@
     Enhancements:
 """
 import csv
+from datetime import datetime
 
 
 """ 
     Reads the receipt.csv file, processes the file and displays the receipt according to the user requirements.
 """
 def main():
-    products_dict = read_dictionary("products.csv" ,0)
-    print("All Products")
-    print(products_dict)
-    print("Requested Items")
-    with open("request.csv","rt") as user_request:
-        reader = csv.reader(user_request)
-        next(reader)
-        for line in reader:
-            if line[0] in products_dict:
+    TAX_RATE = 0.06
+    items_total = 0
+    subtotal = 0
+    try: 
+        products_dict = read_dictionary("products.csv" ,0)
+        # print("All Products")
+        # print(products_dict)
+        print("Brady's Groceries")
+        with open("request.csv","rt") as user_request:
+            reader = csv.reader(user_request)
+            next(reader)
+            for line in reader:
                 print(f"{products_dict[line[0]][1]:15}: {line[1]} @ ${products_dict[line[0]][2]}")
+                items_total += int(line[1])
+                subtotal += int(line[1]) * float(products_dict[line[0]][2])
+        print(f"Number of Items: {items_total}")
+        print(f"Subtotal       : ${subtotal:.2f}")
+        tax = subtotal * TAX_RATE
+        total = tax + subtotal
+        print(f"Sales Tax      : ${tax:.2f}")
+        print(f"Total:         : ${total:.2f}")
+        print("Thank you for shopping at Brady's Groceries")
+        print(datetime.now().strftime("%c"))
+    except KeyError as key_err:
+        print("Error: unknown product ID in the request.csv file: ", key_err)
+    except FileNotFoundError as file_err:
+        print("Error: missing file")
+        print(file_err)
+    except PermissionError as perm_err:
+        print(perm_err)
+        
 
 """ 
     Parameters
@@ -57,7 +79,7 @@ def read_dictionary(filename, index_location):
         for line in reader:
             key = line[index_location]
             file_dict[key] = line
-    
+        
     return file_dict
 
 if __name__ == "__main__":
