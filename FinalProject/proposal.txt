@@ -1,0 +1,52 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+    "Brady's Art Information"
+2. What real-world problem will your program address or help to solve?
+    * it will calculate the price of a piece of art based on size and artist's years of experience
+    * it will write information to a text file to store information about the art
+    * it will retrive the information from the file that has stored information about the art
+    * it will search the information in the file
+3. What will you learn from developing this program?
+    * how to build an intergrated program
+    * better understanding of what I have already learned
+
+4. What Python modules will your program use?
+    * datetime
+    * pytest
+    * csv
+
+    (Some examples are: csv, datetime, functools, matplotlib, math,
+    pandas, pytest, random, requests, and tkinter.)
+
+5. List the names of functions you will need?
+    * read_dictionary(file_name, index) return dictionary
+    * write_to_file(file_name, file_dict) return null
+    * calculate_art_cost(width, length, skill=0) return float
+    * search_dictionary(file_dict, input_word) return list
+
+    (Remember that the most reusable functions don't get user input and
+    don't print results but instead have parameters and return a result.
+    Functions that get user input and print results are important and do
+    useful work but are not easily reusable.)
+
+    (Remember also that it's hard to test functions that get user input
+    and print results. It's easy to test functions that don't get user
+    input and don't print results but instead have parameters and return
+    a result. Therefore, you should write most of your program functions
+    to have parameters and return a result.)
+
+6. List the names of the test functions you will write.
+    * test_read_dictionary
+    * test_calculate_art_cost
+    * test_search_dictionary
+
