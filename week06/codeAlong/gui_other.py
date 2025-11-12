@@ -127,9 +127,10 @@ def populate_main_window(frm_main):
     # Bind the calculate function to the three number
     # entries so that the calculate function will be called
     # when the user changes the text in the number entries.
-    ent_width.bind("<Key>", calculate)
-    ent_ratio.bind("<Key>", calculate)
-    ent_diam.bind("<Key>", calculate)
+    # ent_width.bind("<Key>", calculate)
+    # ent_ratio.bind("<Key>", calculate)
+    # ent_diam.bind("<Key>", calculate)
+    ent_width.bind_all("<Key>", calculate)
 
     # Bind the clear function to the clear button so
     # that the clear function will be called when the
