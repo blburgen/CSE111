@@ -12,12 +12,13 @@ CSE 111 Proposal for a Student Chosen Program
 1. What is the title of your program?
     "Brady's Art Information"
 2. What real-world problem will your program address or help to solve?
+	I like to create art, so I need a program that I will be able to use to collect and sort data about my art.  The program would nee to do the thing listed below.
     * it will calculate the price of a piece of art based on size and artist's years of experience
     * it will write information to a text file to store information about the art
-    * it will retrive the information from the file that has stored information about the art
+    * it will retrieve the information from the file that has stored information about the art
     * it will search the information in the file
 3. What will you learn from developing this program?
-    * how to build an intergrated program
+    * how to build an integrated program
     * better understanding of what I have already learned
 
 4. What Python modules will your program use?
