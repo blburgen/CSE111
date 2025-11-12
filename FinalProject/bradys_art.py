@@ -3,21 +3,27 @@
     
     Time Track:
         11/11/2025: 1.5hr
-        11/12/2025: 1.5hr + 1hr
+        11/12/2025: 1.5hr + 1.5hr
         11/12/2025: 
 """
-import datetime
+from datetime import datetime
 import csv
 
-
 def main():
+    run_prog = True
     art_dict = {}
     art_dict = read_dictionary("art.csv", 0)
-    print(art_dict)
     next_key = find_next_key(art_dict)
-    print(next_key)
-    new_entry=['not me',"Brady Burgener",0, "Oil"]
-    write_to_file("art.csv", next_key, new_entry)
+    while run_prog:
+        user_input = input(f"\nWhat would you like to do:\n1: View available art\n2. Add an art piece\n3. Quit\nYour choice: ")
+        if user_input == '1':
+            list_print(art_dict)
+        elif user_input == '2':
+            new_entry=new_art_user_input()
+            write_to_file("art.csv", next_key, new_entry)
+            art_dict = read_dictionary("art.csv", 0)
+        elif user_input == '3':
+            run_prog = False
 
 """
     read_dictionary(filename, key_column_index) return dictionary
@@ -46,6 +52,25 @@ def find_next_key(dict):
     else:
         next_key = 1
     return next_key
+
+def list_print(dict):
+    name= "Art Name"
+    artist= "Artist's Name"
+    media= "Painting Media"
+    dimension = "Painting Dimensions(inxin)"
+    print(f"\nId#  {name:25}{artist:25}{media:25}{dimension:25}\n")
+    for item in dict:
+        print(f"{item:5}{dict[item][1]:25}{dict[item][2]:25}{dict[item][4]:25}{dict[item][5]}x{dict[item][6]}")
+
+def new_art_user_input():
+    art_name = input(f"\nWhat is the name of the art piece: ")
+    artist_name = input(f"\nWhat is the name of the artist: ")
+    artist_skill = input(f"\nHow many years has the artist producted art: ")
+    media = input(f"\nWhat is the media of the painting (watercolor,acrylic,oil,mixed media): ")
+    art_width = input(f"\nWhat is the width of the painting in inches: ")
+    art_height = input(f"\nWhat is the height of the painting in inches: ")
+    
+    return [art_name, artist_name, artist_skill, media, art_width, art_height, datetime.now()]
 
 """ 
     write_to_file(file_name, new_row) return null
