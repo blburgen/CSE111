@@ -18,7 +18,8 @@ def main():
         print(f"\nWhat would you like to do:")
         print(f"1. View available art")
         print(f"2. Add an art piece")
-        print(f"3. Calculate price for art")
+        print(f"3. Calculate prices for art")
+        print(f"4. Search available art pieces")
         print(f"0. Quit\n")
         user_input = input(f"Your number choice: ")
         if user_input == '1':
@@ -29,6 +30,10 @@ def main():
             art_dict = read_dictionary("art.csv", 0)
         elif user_input == '3':
             art_price(art_dict)
+        elif user_input == '4':
+            input_word = input("What would you like to search for: ")
+            sorted_dict=search_dictionary(art_dict,input_word)
+            list_print(sorted_dict)
         elif user_input == '0':
             run_prog = False
 
@@ -72,7 +77,7 @@ def list_print(dict):
 def new_art_user_input():
     art_name = input(f"\nWhat is the name of the art piece: ")
     artist_name = input(f"\nWhat is the name of the artist: ")
-    artist_skill = input(f"\nHow many years has the artist producted art: ")
+    artist_skill = input(f"\nAt time of creation how many years had the artist producted art: ")
     media = input(f"\nWhat is the media of the painting (watercolor,acrylic,oil,mixed media): ")
     art_width = input(f"\nWhat is the width of the painting in inches: ")
     art_height = input(f"\nWhat is the height of the painting in inches: ")
@@ -96,7 +101,7 @@ def art_price(dict):
         print(f"1. See the available painting prices")
         print(f"2. Calculate your own painting price")
         print(f"0. Go back")
-        user_input = input(f"\nWhat is your choice?")
+        user_input = input(f"\nYour number choice: ")
         if user_input == '1':
             print_art(dict)
         elif user_input == '2':
@@ -123,10 +128,16 @@ def calculate_art_cost(width, length, skill=0):
     return price
 
 """ 
-    search_dictionary(file_dict, input_word) return list
+    search_dictionary(file_dict, input_word) return sorted dictionary
 """
 def search_dictionary(file_dict, input_word):
-    pass
+    new_dict={}
+    for item in file_dict:
+        lowercased_list = [line.lower() for line in file_dict[item]]
+        if any(input_word.lower() in s for s in lowercased_list):
+            new_dict[item] = file_dict[item]
+    return new_dict
+            
 
 if __name__ == "__main__":
     main()
