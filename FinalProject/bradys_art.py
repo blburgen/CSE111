@@ -15,7 +15,11 @@ def main():
     art_dict = read_dictionary("art.csv", 0)
     next_key = find_next_key(art_dict)
     while run_prog:
-        user_input = input(f"\nWhat would you like to do:\n1: View available art\n2. Add an art piece\n3. Quit\nYour choice: ")
+        print(f"\nWhat would you like to do:")
+        print(f"\n1. View available art")
+        print(f"\n2. Add an art piece")
+        print(f"\n3. Calculate price for art")
+        user_input = input(f"\n0. Quit\nYour number choice: ")
         if user_input == '1':
             list_print(art_dict)
         elif user_input == '2':
@@ -23,6 +27,8 @@ def main():
             write_to_file("art.csv", next_key, new_entry)
             art_dict = read_dictionary("art.csv", 0)
         elif user_input == '3':
+            art_price(art_dict)
+        elif user_input == '0':
             run_prog = False
 
 """
@@ -82,12 +88,26 @@ def write_to_file(filename, next_key, new_row):
         new_row.insert(0,next_key)
         writer.writerow(new_row)
         
-
+def art_price(dict):
+    run_cost = True
+    while run_cost:
+        print(f"\nSelect from the option below:")
+        print(f"1. See the available painting prices")
+        print(f"2. Calculate your own painting price")
+        print(f"0. Go back")
+        user_input = input(f"\nWhat is your choice?")
+        if user_input == '1':
+            pass
+        elif user_input == '2':
+            pass
+        elif user_input == '0':
+            run_cost = False
 """ 
     calculate_art_cost(width, length, skill=0) return float
 """
 def calculate_art_cost(width, length, skill=0):
-    pass
+    price = width * length * 0.1 * (skill + 1)
+    return price
 
 """ 
     search_dictionary(file_dict, input_word) return list
