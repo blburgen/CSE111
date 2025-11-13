@@ -30,7 +30,7 @@ doing any of the following:
 2025-11-11          1.5             Wrote three program functions
 2025-11-12          1.5             Added loop to see painting lists and add to the end of the list
 2025-11-12          1.0             Tested the program
-2025-11-12          1.0             Wrote price functions
+2025-11-12          2.5             Wrote price functions
 
 2. In Canvas, submit this completed text file, your Python program, your
 Python test file, and any project data files such as .txt and .csv files and

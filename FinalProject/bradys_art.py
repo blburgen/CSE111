@@ -16,10 +16,11 @@ def main():
     next_key = find_next_key(art_dict)
     while run_prog:
         print(f"\nWhat would you like to do:")
-        print(f"\n1. View available art")
-        print(f"\n2. Add an art piece")
-        print(f"\n3. Calculate price for art")
-        user_input = input(f"\n0. Quit\nYour number choice: ")
+        print(f"1. View available art")
+        print(f"2. Add an art piece")
+        print(f"3. Calculate price for art")
+        print(f"0. Quit\n")
+        user_input = input(f"Your number choice: ")
         if user_input == '1':
             list_print(art_dict)
         elif user_input == '2':
@@ -97,7 +98,7 @@ def art_price(dict):
         print(f"0. Go back")
         user_input = input(f"\nWhat is your choice?")
         if user_input == '1':
-            pass
+            print_art(dict)
         elif user_input == '2':
             width_input = input(f"\nWhat is the painting width: ")
             height_input = input(f"What is the painting height: ")
@@ -106,11 +107,19 @@ def art_price(dict):
             print(f"Your painting is worth ${price:.2f}")
         elif user_input == '0':
             run_cost = False
+
+def print_art(dict):
+    name= "Art Name"
+    artist= "Artist's Name"
+    print(f"\n{name:25}{artist:25}Price\n")
+    for item in dict:
+        price = calculate_art_cost(dict[item][5], dict[item][6], dict[item][3])
+        print(f"{dict[item][1]:25}{dict[item][2]:25}${price:10.2f}")
 """ 
     calculate_art_cost(width, length, skill=0) return float
 """
 def calculate_art_cost(width, length, skill=0):
-    price = float(width) * float(length) * 0.1 * (float(skill) + 1)
+    price = float(width) * float(length) * 0.5 * (float(skill) + 1)
     return price
 
 """ 
