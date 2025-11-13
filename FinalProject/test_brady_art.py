@@ -1,5 +1,5 @@
 from bradys_art import read_dictionary
-from bradys_art import 
+from bradys_art import art_price
 from inspect import signature
 from os import path
 from tempfile import mktemp
