@@ -99,14 +99,18 @@ def art_price(dict):
         if user_input == '1':
             pass
         elif user_input == '2':
-            pass
+            width_input = input(f"\nWhat is the painting width: ")
+            height_input = input(f"What is the painting height: ")
+            year_input = input(f"How many years of experience does the artist have:")
+            price = calculate_art_cost(width_input,height_input,year_input)
+            print(f"Your painting is worth ${price:.2f}")
         elif user_input == '0':
             run_cost = False
 """ 
     calculate_art_cost(width, length, skill=0) return float
 """
 def calculate_art_cost(width, length, skill=0):
-    price = width * length * 0.1 * (skill + 1)
+    price = float(width) * float(length) * 0.1 * (float(skill) + 1)
     return price
 
 """ 
