@@ -1,14 +1,13 @@
 """ 
     Author: Brady Burgener
-    
-    Time Track:
-        11/11/2025: 1.5hr
-        11/12/2025: 1.5hr + 1.5hr
-        11/12/2025: 
 """
 from datetime import datetime
 import csv
 
+""" 
+    Main function
+    This section runs the menu for the progam.  It loops until the user enters 0.
+"""
 def main():
     run_prog = True
     art_dict = {}
@@ -39,6 +38,7 @@ def main():
 
 """
     read_dictionary(filename, key_column_index) return dictionary
+    this function brings in a csv file and creates a dictionary
 """
 def read_dictionary(filename, key_column_index=0):
     file_dict = {}
@@ -64,7 +64,9 @@ def find_next_key(dict):
     else:
         next_key = 1
     return next_key
-
+""" 
+    This function prints terminal a list of dictionary items
+"""
 def list_print(dict):
     name= "Art Name"
     artist= "Artist's Name"
@@ -74,6 +76,10 @@ def list_print(dict):
     for item in dict:
         print(f"{item:5}{dict[item][1]:25}{dict[item][2]:25}{dict[item][4]:25}{dict[item][5]}x{dict[item][6]}")
 
+""" 
+    This function take input from the user to generate a new item in the dictionary
+    returns a list
+"""
 def new_art_user_input():
     art_name = input(f"\nWhat is the name of the art piece: ")
     artist_name = input(f"\nWhat is the name of the artist: ")
@@ -85,7 +91,7 @@ def new_art_user_input():
     return [art_name, artist_name, artist_skill, media, art_width, art_height, datetime.now()]
 
 """ 
-    write_to_file(file_name, new_row) return null
+    write_to_file(file_name, new_row) return nothing
     writes a new entry to the csv file
 """
 def write_to_file(filename, next_key, new_row):
@@ -93,7 +99,13 @@ def write_to_file(filename, next_key, new_row):
         writer = csv.writer(file)
         new_row.insert(0,next_key)
         writer.writerow(new_row)
-        
+
+""" 
+    This function runs a menu for art pricing
+    It loops until the user inputs 0
+    input is the dictionary
+    return nothing
+"""        
 def art_price(dict):
     run_cost = True
     while run_cost:
@@ -105,14 +117,19 @@ def art_price(dict):
         if user_input == '1':
             print_art(dict)
         elif user_input == '2':
-            width_input = input(f"\nWhat is the painting width: ")
-            height_input = input(f"What is the painting height: ")
+            width_input = input(f"\nWhat is the painting width(inches): ")
+            height_input = input(f"What is the painting height(inches): ")
             year_input = input(f"How many years of experience does the artist have:")
             price = calculate_art_cost(width_input,height_input,year_input)
             print(f"Your painting is worth ${price:.2f}")
         elif user_input == '0':
             run_cost = False
 
+"""
+  This function prints the available art pieces with their prices
+  input dictionary
+  returns nothing 
+"""
 def print_art(dict):
     name= "Art Name"
     artist= "Artist's Name"

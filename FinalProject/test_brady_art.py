@@ -1,10 +1,32 @@
 from bradys_art import read_dictionary
-from bradys_art import art_price
+from bradys_art import calculate_art_cost
+from bradys_art import find_next_key
 from inspect import signature
 from os import path
 from tempfile import mktemp
 import pytest
 
+def test_art_price():
+    assert calculate_art_cost(1,1) == 0.5
+    assert calculate_art_cost(16,20) == 160
+    assert calculate_art_cost(16,20,20) == 3360
+    assert calculate_art_cost(0,0) == 0
+    assert calculate_art_cost(0,0,20) == 0
+
+
+def test_find_next_key():
+    """ 
+        verifies pricing function works correctly
+        Parameters: none
+        Return: nothing
+    """
+    dict1 = {}
+    dict2 = {"1":["1", "John", "cat"],"2":["2", "None", "Why"]}
+    dict3 = {"5":["5", "Howdy", "test"]}
+    
+    assert find_next_key(dict1) == 1
+    assert find_next_key(dict2) == 3
+    assert find_next_key(dict3) == 6
 
 def test_read_dictionary():
     """Verify that the read_dictionary function works correctly.
@@ -30,17 +52,12 @@ def test_read_dictionary():
     art_dict = call_read_dictionary(filename, I_NUMBER_INDEX)
 
     # Verify that the read_dictionary function returns a dictionary.
-    assert isinstance(art_dict, dict), \
-        "read_dictionary function must return a dictionary:" \
-        f" expected a dictionary but found a {type(art_dict)}"
+    assert isinstance(art_dict, dict), f"read_dictionary function must return a dictionary: expected a dictionary but found a {type(art_dict)}"
 
     # Verify that the art dictionary contains atleast five items.
     length = len(art_dict)
     exp_len = 5
-    assert length > exp_len, \
-        "art dictionary has too" \
-        f" {'few' if length < exp_len else 'many'} items:" \
-        f" expected {exp_len} but found {length}"
+    assert length > exp_len, f"art dictionary has too {'few' if length < exp_len else 'many'} items: expected {exp_len} but found {length}"
 
     # Verify the correctness of five items in the dictionary.
     check_art(art_dict, "1", "Why should I care")
@@ -58,10 +75,7 @@ def call_read_dictionary(filename, key_column_index):
     length = len(sig.parameters)
     min_len = 1
     max_len = 2
-    assert length == min_len or length == max_len, \
-        "The read_dictionary function contains too " \
-        f"{'few' if length < min_len else 'many'} parameters; " \
-        f"expected {min_len} or {max_len} parameters but found {length}"
+    assert length == min_len or length == max_len, f"The read_dictionary function contains too {'few' if length < min_len else 'many'} parameters; expected {min_len} or {max_len} parameters but found {length}"
     if length == min_len:
         dictionary = read_dictionary(filename)
     else:
@@ -80,50 +94,34 @@ def check_art(art_dict, idnumber, exp_name):
     Return: nothing
     """
     # Verify that idnumber is in the art dictionary.
-    assert idnumber in art_dict, \
-        f'"{idnumber}" is missing from the art dictionary.'
+    assert idnumber in art_dict, f'"{idnumber}" is missing from the art dictionary.'
 
     actual = art_dict[idnumber]
-    assert isinstance(actual, str) or isinstance(actual, list), \
-        "Each value in the art dictionary must be either a string " \
-        f"or a list. The value for {idnumber} is of type {type(actual)} " \
-        "which is not a string or a list."
+    assert isinstance(actual, str) or isinstance(actual, list), f"Each value in the art dictionary must be either a string or a list. The value for {idnumber} is of type {type(actual)} which is not a string or a list."
 
     if isinstance(actual, str):
         # Verify that the art's name is correct.
-        assert actual[1] == exp_name, \
-                f'Wrong name for "{idnumber}"; ' \
-                f'expected {exp_name} but found {actual}'
+        assert actual[1] == exp_name, f'Wrong name for "{idnumber}"; expected {exp_name} but found {actual}'
     else:
         length = len(actual)
         min_len = 1
-        assert length >= min_len, \
-            f"The value list for art {idnumber} contains too " \
-            f"{'few' if length < min_len else 'many'} elements; " \
-            f"expected {min_len} elements but found {length}"
+        assert length >= min_len, f"The value list for art {idnumber} contains too {'few' if length < min_len else 'many'} elements; expected {min_len} elements but found {length}"
 
         if length > min_len:
             # Verify that the art's name is correct.
             NAME_INDEX = 1
             act_name = actual[NAME_INDEX]
-            assert act_name == exp_name, \
-                    f'Wrong name for "{idnumber}"; ' \
-                    f'expected {exp_name} but found {act_name}'
+            assert act_name == exp_name, f'Wrong name for "{idnumber}"; expected {exp_name} but found {act_name}'
         else:
             # Verify that the art's I-Number is correct.
             ID_NUMBER_INDEX = 0
             act_idnum = actual[ID_NUMBER_INDEX]
-            assert act_idnum == idnumber, \
-                    'Inconsistent IDnumbers in the key and value. ' \
-                    f'The key is {idnumber} but {act_idnum} is in ' \
-                    'the corresponding value.'
+            assert act_idnum == idnumber, f'Inconsistent IDnumbers in the key and value. The key is {idnumber} but {act_idnum} is in the corresponding value.'
 
             # Verify that the art's name is correct.
             NAME_INDEX = 1
             act_name = actual[NAME_INDEX]
-            assert act_name == exp_name, \
-                    f'Wrong name for "{idnumber}"; ' \
-                    f'expected {exp_name} but found {act_name}'
+            assert act_name == exp_name, f'Wrong name for "{idnumber}"; expected {exp_name} but found {act_name}'
 
 
 # Call the main function that is part of pytest so that the
