@@ -9,7 +9,7 @@ Student Project Report
 2025-11-12           2.5            Wrote price functions and experimental code for the functions
 2025-11-13           1.0            Wrote search function and experimental code for the function
 2025-11-13           1.0            Wrote test functions
-2025-11-14           2.0            Fininsh up test functions and adds comments to program
+2025-11-14           2.0            Finnish up test functions and adds comments to program
 
 total time          12.0
 
